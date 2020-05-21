@@ -12,6 +12,14 @@ var log_code=`
     document.getElementById("pwd_i").style.backgroundColor="#131313";
 `;
 
+function vMail(subject,reciever){
+    const execSync = require('child_process').execSync;
+    const output = execSync("python vMail.py "+`"${subject},${reciever}"`, { encoding: 'utf-8' });
+    return(output);
+}
+
+console.log(vMail('password reset','ashwin.balaji.dav@gmail.com'));
+
 function _post_(task,params){
     ret={task:'none',params:'none',status:'none',reply:'none',code:'none'};
     if(task=="write"){
