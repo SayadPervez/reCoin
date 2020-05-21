@@ -1,0 +1,80 @@
+html{
+    font-family: Verdana, Geneva, Tahoma, monospace;
+    color: black;
+    /*background-image: linear-gradient(180deg,#8725F5,#6d00f5);*/
+    background-image: linear-gradient(45deg, #552586,#6A359C,#804FB3,#6A359C,#552586);
+    /*background-image: linear-gradient(45deg,rgb(100, 46, 201),#8725F5);*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+#title-cont{
+    height:9%;
+    margin:2px;
+}
+
+.sub{
+    background-color:  #FFD700;
+    min-height:90%;
+    padding :2px 4px;
+    width:80%;
+    border: solid 1.5px black;
+    border-radius: 16px;
+    margin:2px auto;
+    box-shadow: 10px 10px 5px 2px #111111;
+}
+
+h1{
+    text-align: center;
+}
+
+.header{
+    -webkit-text-stroke: 1px black;
+    color: #FFD700;
+    font-size:48px;
+}
+
+#login-cont{
+    text-align: center;
+    height:fit-content;
+    padding:40px 0px;
+    padding-bottom: 90px;
+}
+
+#container{
+    height:fit-content;
+    min-height: 150%;
+}
+
+
+.btn:hover{
+    box-shadow: 3px 3px 1.5px 0.5px #111111;
+    transition: 0.2s all; 
+}
+
+.btn:active { 
+    transform: scale(0.97); 
+    /* Scaling button to 0.98 to its original size */ 
+    box-shadow: 5px 5px 2.5px 2px #111111;
+    /* Lowering the shadow */ 
+} 
+
+.hvr:hover{
+    box-shadow: 5px 5px 2.5px 2px #111111;
+    border:2px solid black;
+}
+
+.button{
+    font-size: 28px;
+    padding:12px 12px;
+    margin:12px 12px;
+    width:65%;
+    height:15%;
+    background-color: #804FB3;
+    font-weight: bolder;
+    border:2px solid black;
+    border-radius:12px;
+    box-shadow: 3px 3px 1.5px 0.5px #111111;
+}
