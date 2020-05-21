@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title> CLIENT SIDE </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+        <link rel="stylesheet" href="./mob_skin.css">
+        <script src="https://kit.fontawesome.com/943a366770.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <br>
+        <div>
+            <h1 class="header" id="heading">
+            reCoin <i class="fas fa-coins"></i>
+            </h1>
+        </div>
+        <div id='container'>
+            <div class='sub' id="login-cont">
+                <div><h1>Login Here</h1></div>
+                <div><br><br>
+                    <form onsubmit="return(false)"><div class="iput"><input class="input" type='text' id='uname' placeholder="Username"></input></div></form>
+                </div><br>
+                <div>
+                    <form onsubmit="return(false)"><div class="iput"><input type=password class="input" id='pwd' placeholder="Password"></input></div></form>
+                </div><br>
+                <button class="btn hvr" onclick="submit()" id="submit-button">LOGIN</button>
+                <br><br><span id="sp">
+
+                </span>
+            </div>
+            <div class='sub' id="contents-cont">
+                LoggedIn
+            </div>
+        </div>
+        <script type="text/javascript" src="./mob_brain.js"></script>
+    </body>
+</html>
