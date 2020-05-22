@@ -18,7 +18,7 @@ Note:
 ## C++ programs I need:
 ---
 ### 1) **getAmount.cpp** **`"username,password"`**
-> This program must take username and password as cmd line arguements and print **"amount"** if the user credentials are right, else print a **"-x-x-x-"**.
+> This program must take username and password as cmd line arguements and print `**"amount"**` if the user credentials are right, else print a **"-x-x-x-"**.
 ---
 ### 2) **writeNewPwd.cpp** **`"username,newPassword"`**
 > This program must take username and a newPassword as cmd line arguements and print **"success"** if a new password was written else print **"failure"** upon which DBMS system has to be reviewed. oldPassword is not necessary for resetting password since password resetting can only be done on a secure way through email OTP.
