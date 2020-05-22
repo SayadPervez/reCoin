@@ -54,6 +54,22 @@ h1{
     text-align: center;
 }
 
+.name__{
+    font-size:21px;
+}
+
+.metaData{
+    font-weight: bolder;
+    font-size:17px;
+    padding:10px 10px;
+    border: 2px solid black;
+    background: transparent;
+    width:78%;
+    border-radius:12px;
+    margin:12px auto;
+    box-shadow: 5px 5px 1px 0.5px #222020;
+}
+
 .iput{
     border:2px solid black;
     width:80%;
@@ -150,7 +166,7 @@ h1{
 }
 
 .button:active { 
-    transform: scale(0.97); 
+    transform: scale(0.93); 
     /* Scaling button to 0.98 to its original size */ 
     box-shadow: 5px 5px 1px 0.5px #222020; 
     /* Lowering the shadow */ 
@@ -162,7 +178,7 @@ h1{
 }
 
 .btn:active { 
-    transform: scale(0.97); 
+    transform: scale(0.93); 
     /* Scaling button to 0.98 to its original size */ 
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); 
     /* Lowering the shadow */ 

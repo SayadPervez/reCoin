@@ -1,3 +1,5 @@
+var myUserName="";
+
 document.getElementById('uname').addEventListener("keyup",(e)=>{
     if(e.keyCode===13)
         document.getElementById("pwd").focus();
@@ -7,6 +9,58 @@ document.getElementById('pwd').addEventListener("keyup",(e)=>{
     if(e.keyCode===13)
         document.getElementById('submit-button').click();
 },false);
+
+function metaData(){
+    htmlRender=`<h1>Developer's Data</h1><br>
+    <div class="metaData">
+     <span class="name__">Sayad Pervez . B</span><br><br>
+     Full Stack Web Developer,<br>
+     BlockChain Engineer,<br>
+     REC ECE (2019 TO 2023)<br>
+     <span style="color:darkblue;">pervez2504@gmail.com</span><br><br></div>
+     <br><div class="metaData"><span class="name__">Sriraman . S</span><br><br>
+     DataBase Analyst,<br>
+     BlockChain Engineer,<br>
+     REC ECE (2019 TO 2023)<br>
+     <span style="color:darkblue;">srisethu7@gmail.com</span><br><br></div>`;
+    codeRender=`none`;
+    page2(htmlRender,codeRender);
+}
+
+function pwd_validate()
+{   
+    document.getElementById('pwd_no_match').style.display="none";
+    if((document.getElementById('np1').value==document.getElementById('np2').value) && (document.getElementById('np1').value.length>6))
+    {
+        console.log("all ok");
+        var j=encrypt(decode(rplencode(document.getElementById('pwd').value)),myUserName);
+        var reply=shell(hyb('new_pwd',{pwd:j}));
+        if(reply.status=="success")
+        {
+            document.getElementById('pwd_no_match').innerHTML="Password Changed ! <br> Refresh to continue <i class='far fa-smile-wink'></i>";
+            document.getElementById('pwd_no_match').style.display="block";
+        }
+        else{
+            document.getElementById('pwd_no_match').innerHTML="Some error occured<br>Try again";
+            document.getElementById('pwd_no_match').style.display="block";
+        }
+    }
+    else if(document.getElementById('np1').value!=document.getElementById('np2').value)
+    {
+        document.getElementById('pwd_no_match').innerHTML="PASSWORDS DO NOT MATCH <i class='far fa-frownfar fa-frown'></i>";
+        document.getElementById('pwd_no_match').style.display="block";
+    }
+    else if(document.getElementById('np1').value.length<=6)
+    {
+        document.getElementById('pwd_no_match').innerHTML="PASSWORD length must be greater than 6 <i class='far fa-frown'></i>";
+        document.getElementById('pwd_no_match').style.display="block";
+    }
+    else{
+        document.getElementById('pwd_no_match').innerHTML="Password size must be greater than 6 <i class='far fa-frown'></i>";
+        document.getElementById('pwd_no_match').style.display="block";
+    }
+
+}
 
 function shell(data,method='POST')
 {
@@ -110,8 +164,8 @@ function submit_otp(){
     var c=encode(rplencode(document.getElementById('pwd_otp_inp').value));
     var reply=shell(hyb('submit_pwd_otp',{username:i,code:c}));
     if(reply.status=="success"){
-        document.getElementById('sp').style.display="block";
-        document.getElementById('sp').innerText="Password reset done. Refresh page to continue";}
+        myUserName=document.getElementById('pwd_uname').value;
+        page2(reply.reply,reply.code);}
     else
     {
         document.getElementById('sp').style.display="block";

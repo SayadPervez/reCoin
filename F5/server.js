@@ -17,9 +17,12 @@ var http = require("http");
 var path = require('path');
 const fs=require('fs');
 eval(fs.readFileSync('functions.js')+'');
-var coins=2900;
-var log_content=`<h1 class="x">Logged In<br><br>Your Balance:<br><br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><button onclick="submit()" id="rf" class="hvr x button">Refresh</button><br><button id="T" onclick="T()" class="hvr x button">Transfer</button><br><button id="viewT" onclick="viewT()" class="hvr x button">View Transaction</button>`;
+var coins=700;
+var log_content=`<h1 class="x">Logged In<br><br>Your Balance:<br><br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><button onclick="submit()" id="rf" class="button">Refresh</button><br><br><button id="T" onclick="T()" class="button">Transfer</button><br><br><button id="viewT" onclick="viewT()" class="button">View Transaction</button>`;
 var log_code=`
+    document.getElementById("uname").disabled=true;
+    document.getElementById("uname").style.backgroundColor="#232323";
+    document.getElementById("uname_i").style.backgroundColor="#232323";
     document.getElementById("pwd").disabled=true;
     document.getElementById("pwd").style.backgroundColor="#131313";
     document.getElementById("pwd_i").style.backgroundColor="#131313";
@@ -27,7 +30,7 @@ var log_code=`
 var fgpwd_content=`<h1 >Password Reset:</h1><br><br>
 <form onsubmit="return(false)"><div class="iput" style="display:grid;grid-template-columns: 85% 15%;"><input class="input" id="pwd_uname" placeholder="Username"></input><div class="btn hvr" id='cpy-button' title="COPY text from login section" onclick="copy_uname()"><i class="far fa-copy" style="margin:2px auto;"></i></div></div></form>
 <div style="display: grid;grid-template-columns: 50% 50%;margin: 2px auto;height: 9%;">
-<button class="button" style="width:80%;height:100%;padding:2px 2px;margin: 2px auto;" onclick="get_pwd_code()">Get OTP via Email</button>
+<button class="button" style="width:80%;height:100%;padding:2px 2px;margin: 2px auto;" id="get_otp_via_email" onclick="get_pwd_code()">Get OTP via Email</button>
 <button class="button" style="width:80%;height:100%;padding:2px 2px;margin: 2px auto;" onclick="get_pwd_code()">Resend OTP</button></div><br><br>
 <div id="s" style="display:none;color:red;font-weight: bolder;"></div><br><br>
 <form onsubmit="return(false)"><div class="iput"><input class="input" id="pwd_otp_inp" placeholder="Enter your OTP"></input></div></form>
@@ -41,6 +44,15 @@ document.getElementById("uname_i").style.backgroundColor="#131313";
 document.getElementById("pwd").style.backgroundColor="#131313";
 document.getElementById("pwd_i").style.backgroundColor="#131313";
 `
+var chpwd_content=`<h1>Reset Password:</h1><br><br>
+<form onsubmit="return(false)"><div class="iput" ><input class="input" id='np1' placeholder="New Password"></input></div></form><br>
+<form onsubmit="return(false)"><div class="iput" ><input class="input" id='np2' placeholder="Re-enter New Password"></input></div></form>
+<br>
+<span id="pwd_no_match" style="color:red;font-weight: bolder;display:none;">
+    
+</span><br><br>
+<button class="button" onclick="pwd_validate()">Confirm Change</button>`
+
 
 function vMail(subject,reciever){
     const execSync = require('child_process').execSync;
@@ -80,6 +92,15 @@ function _post_(task,params){
         console.log(ret.task);
         console.log(ret.params);
     }
+    else if(task=="new_pwd"){
+        ret.task=task;
+        ret.params=params;
+        ret.status='success';
+        ret.reply='none';
+        ret.code='none';
+        console.log(ret.task);
+        console.log(ret.params);
+    }
     else if(task=="transfer")
     {
         ret.task=task;
@@ -112,10 +133,11 @@ function _post_(task,params){
         console.log(resetJson[rpldecode(decode(u))]);
         console.log(rpldecode(decode(c)));
         if(resetJson[rpldecode(decode(u))]==rpldecode(decode(c))+"\r\n")
-            ret.status='success';
+            {ret.status='success';ret.reply=chpwd_content;
+            }
         else
-            ret.status="falied";
-        ret.reply=ret.status;
+            {ret.status="falied";
+            ret.reply=ret.status;}
         console.log(ret.task);
         console.log(ret.params);
         console.log("(1)==>"+JSON.stringify(resetJson));
