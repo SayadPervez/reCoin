@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title> CLIENT SIDE </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+        <link rel="stylesheet" href="./pc_skin.css">
+        <script src="https://kit.fontawesome.com/943a366770.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div id="title-cont">
+        <div style="display:grid;grid-template-columns: 10% 0.5% 59.5% 30%;">
+            <div><button class='btn hvr' id='search' onclick=search()>
+                <i id='sIcon' class="far fa-question-circle"></i>
+            </button></div>
+            <div>
+                <!--None-->
+            </div>
+        </div>
+        <div>
+            <h1 class="header" id="heading">
+            reCoin <i class="fas fa-coins"></i>
+            </h1>
+        </div>
+        <div>
+            <!--None-->
+        </div>
+        </div>
+        <div id='container'>
+            <div></div>
+            <div class='sub' id="login-cont">
+                <div><h1>Login Here</h1></div>
+                <div><br><br>
+                    <form onsubmit="return(false)"><div class="iput" id="uname_i"><input class="input" id='uname' placeholder="Username"></input></div></form>
+                </div><br>
+                <div>
+                    <form onsubmit="return(false)"><div class="iput" id="pwd_i"><input class="input" type="password" id='pwd' placeholder="Password"></input></div></form>
+                </div><br>
+                <button class="btn hvr" id="submit-button" onclick="submit()">LOGIN</button><br><br>
+                <button class="button" style="height:7%" id="forgot-pwd" onclick="forgot_pwd()">FORGOT PASSWORD ?</button>
+                <br><br>
+                <span id="span">
+
+                </span>
+            </div>
+            <div></div>
+            <!---------------------------------------------------->
+            <div class='sub' id="contents-cont">
+                
+            </div>
+            <!---------------------------------------------------->
+            <div></div>
+        </div>
+        <script type="text/javascript" src="./functions.js"></script>
+        <script type="text/javascript" src="./pc_brain.js"></script>
+    </body>
+</html>
