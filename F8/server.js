@@ -4,6 +4,14 @@ var transJson={};
 var transactionsData={};
 var resetJson={};
 
+function addTransactionData(sid,rid,amt){
+    transactionsData[sid]=String(`${sid},${rid},${amt}`);
+}
+
+function completeTransaction(sid){
+    delete transactionsData[sid];
+}
+
 function add_trans(uname,tcode)
 {
     transJson[uname]=tcode;
@@ -205,6 +213,7 @@ function _post_(device,task,params){
         if(device=="pc"){
             var q=tMail(ret.params.amount,ret.params.sender,ret.params.receiver);
             add_trans(ret.params.sender,q);
+            addTransactionData(ret.params.sender,ret.params.receiver,ret.params.amount);
             ret.reply=encode(pc_trans_final);
             ret.code=encode("none");
         }
@@ -216,6 +225,8 @@ function _post_(device,task,params){
         var a_=ret.params.uname;
         var c_=decode(ret.params.code_);
         var v=get_trans(a_);
+        console.log(JSON.stringify(transactionsData));
+        completeTransaction(a_);
         if((c_)+"\r\n"==(v))
         {
             ret.status="success";
