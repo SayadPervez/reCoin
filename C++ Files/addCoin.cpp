@@ -1,6 +1,6 @@
 #include<iostream>
-#include<string>
 #include<fstream>
+#include<string>
 
 using namespace std;
 
@@ -12,11 +12,11 @@ string slice(string st, int s, int e)
     return(ret);
 }
 
-int index(string s)
+int index(string s, int g)
 {
     int n=s.size();
     int ret=-1;
-    for(int i=0;i<n;i++)
+    for(int i=g+1;i<n;i++)
     {
         if((char)s[i]==',')
             {ret=i;break;}
@@ -24,14 +24,16 @@ int index(string s)
     return(ret);
 }
 
-
-string run(char *argv[])
+string addC(char *argv[])
 {
     fstream infile;
     string s= argv[1];
-    int q = index(s);
+    int q = index(s,0);
+    int p = index(s,q);
+    int temp;
     string s1= slice(s,0,q);
-    string s2= slice(s,q+1,s.size());
+    string s2= slice(s,q+1,p);
+    string s3= slice(s,p+1,s.size());
     string type1, type2, type3, type4;
     infile.open("C:\\Users\\srise\\OneDrive\\Documents\\db.csv");
     if(!infile.good())
@@ -43,21 +45,26 @@ string run(char *argv[])
         while(!infile.eof())
         {
             getline(infile,type1,',');
+            getline(infile,type1,',');
             getline(infile,type2,',');
-            if((type2 == s1))
+            if((type1 == s1) && (type2 == s2))
             {
-                infile << s2;
+                getline(infile,type3,',');
+                int size = type3.size();
+                infile.seekg((-size),ios::cur);
+                temp = stoi(type3)+ stoi(s3);
+                type3= to_string(temp);
+                infile << type3;
+                getline(infile,type4,'\n');
                 infile.close();
-                return "success";
+                return type3;
             }
             else
             {
                 getline(infile,type3,',');
-                getline(infile,type4,',');
                 getline(infile,type4,'\n');
             }
         }
-
     }
     infile.close();
     return "failure";
@@ -67,7 +74,7 @@ int main(int argc, char *argv[])
 {
     if(argc == 2)
     {
-        printf("%s",run(argv));
+        printf("%s",addC(argv));
     }
     else
     {
