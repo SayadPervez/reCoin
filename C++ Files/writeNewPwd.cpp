@@ -46,7 +46,7 @@ string run(char *argv[])
             getline(infile,type2,',');
             if((type2 == s1))
             {
-                infile << s2;
+                infile << s2<<",";
                 infile.close();
                 return "success";
             }
