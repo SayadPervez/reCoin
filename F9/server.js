@@ -41,8 +41,8 @@ var http = require("http");
 var path = require('path');
 const fs=require('fs');
 eval(fs.readFileSync('functions.js')+'');
-var coins=1500;
-var pc_log_content=`<h1 class="x">Logged In<br><br>Your Balance:<br><br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><button onclick="submit()" id="rf" class="button">Refresh</button><br><br><button id="T" onclick="T()" class="button">Transfer</button><br><br><button id="viewT" onclick="viewT()" class="button">Mail My Transactions</button>`;
+var coins=1600;
+var pc_log_content=`<h1 class="x">Logged In<br><br>Your Balance:<br><br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><button onclick="submit()" id="rf" class="button">Refresh</button><br><br><button id="T" onclick="T()" class="button">Transfer</button><br><br><button id="viewT" onclick="viewT()" class="button">Mail My Transactions</button><br><br><br><div id="a24" style="font-weight:bolder;color:red;"></div>`;
 var pc_log_code=`
     document.getElementById("uname").disabled=true;
     document.getElementById("uname").style.backgroundColor="#232323";
@@ -51,6 +51,7 @@ var pc_log_code=`
     document.getElementById("pwd").style.backgroundColor="#131313";
     document.getElementById("pwd_i").style.backgroundColor="#131313";
     document.getElementById("forgot-pwd").innerText="Change Password";
+    document.getElementById("submit-button").innerText="Login Page";
 `;
 var pc_fgpwd_content=`<h1 >Password Reset:</h1><br><br>
 <form onsubmit="return(false)"><div class="iput" style="display:grid;grid-template-columns: 85% 15%;"><input class="input" id="pwd_uname" placeholder="Username"></input><div class="btn hvr" id='cpy-button' title="COPY text from login section" onclick="copy_uname()"><i class="far fa-copy" style="margin:2px auto;"></i></div></div></form>
@@ -78,8 +79,8 @@ var pc_chpwd_content=`<h1>Reset Password:</h1><br><br>
 </span><br><br>
 <button class="button" onclick="pwd_validate()">Confirm Change</button>`
 var pc_transpage=`<h1>Tranfers Coins<br><br>Your Balance:<br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
-<form onsubmit="return(false)"><div class="iput" id="to_i"><input class="input" id='to_' placeholder="Transfer to"></input></div></form>
-<form onsubmit="return(false)"><div class="iput" id="t_amt"><input class="input" id='tAmt' placeholder="Amount" type="number" min="0" step="1" max="${coins}"></input></div></form><br>
+<form onsubmit="return(false)"><div class="iput" id="t_amt"><input class="input" id='tAmt' placeholder="Amount" type="number" min="0" step="1" max="${coins}"></input></div></form>
+<form onsubmit="return(false)"><div class="iput" id="to_i"><input class="input" id='to_' placeholder="Transfer to"></input></div></form><br>
 <button class="button" onclick="totp()">Send Confirmation Code</button><br><br>
 <span id="tsp" class="span">
 
@@ -91,7 +92,7 @@ function recordTransactions(one_Transaction,status)
 }
 
 var mob_log_content=`<h1 class="x">Logged In<br><br>Your Balance:<br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1>
-<button onclick="submit()" id="rf" class="button">Refresh</button><br><br>
+<button onclick="submit_()" id="rf" class="button">Refresh</button><br><br>
 <button id="T" onclick="T()" class="button">Transfer</button><br><br>
 <button id="viewT" onclick="viewT()" class="button">View Transactions</button>`;
 var mob_log_code=`

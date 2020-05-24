@@ -167,7 +167,7 @@ h1{
 }
 
 .button:active { 
-    transform: scale(0.93); 
+    transform: scale(0.75);
     /* Scaling button to 0.98 to its original size */ 
     box-shadow: 5px 5px 1px 0.5px #222020; 
     /* Lowering the shadow */ 

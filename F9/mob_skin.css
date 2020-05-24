@@ -52,8 +52,8 @@ h1{
     border-radius: 10px;
     font-weight:bolder;
     color:#FFD700;
-    background-color: #131313;
-    box-shadow: 5px 5px 1px 0.5px #222020;
+    background-color: #232323;
+    
     margin:0px auto;
 }
 
@@ -84,7 +84,7 @@ h1{
     border-radius: 10px;
     font-weight:bolder;
     color:#FFD700;
-    background-color: #131313;
+    background-color: #232323;
 }
 
 .input{
@@ -142,12 +142,12 @@ h1{
     color:#FFD700;
 }
 
-.btn:hover{
-    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); 
+.button:hover{
+    box-shadow: 5px 5px 1px 0.5px #343434;
     transition: 0.2s all; 
 }
 
-.btn:active { 
+.button:active { 
     transform: scale(0.97); 
     /* Scaling button to 0.98 to its original size */ 
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); 

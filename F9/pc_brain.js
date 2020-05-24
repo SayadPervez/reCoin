@@ -185,6 +185,7 @@ function T(){
 }
 
 function viewT(){
+    document.getElementById('a24').innerHTML="Please wait";
     var uname=document.getElementById('uname').value;
     var j=encrypt(decode(rplencode(document.getElementById('pwd').value)),uname);
     var i=encode(rplencode(uname));
@@ -192,7 +193,7 @@ function viewT(){
     if(rply.status!="success")
         codeRed(rply.reply);
     else{
-        eval(rply.code);
+        document.getElementById('a24').innerHTML="Email sent";
     }
 }
 

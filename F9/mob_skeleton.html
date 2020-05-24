@@ -8,6 +8,8 @@
     </head>
 
     <body>
+        <script type="text/javascript" src="./functions.js"></script>
+        <script type="text/javascript" src="./mob_brain.js"></script>
         <br>
         <div>
             <h1 class="header" id="heading">
@@ -23,17 +25,16 @@
                 <div class='pg1'>
                     <form class='pg1' onsubmit="return(false)"><div class="iput pg1"><input type=password class="input pg1" id='pwd' placeholder="Password"></input></div></form>
                 </div><br>
-                <button class="button pg1" onclick="submit()" id="submit-button">LOGIN</button><br>
+                <button class="button pg1" ontouchstart="submit()" id="submit-button">LOGIN</button><br>
                 <button class="button pg1" id="forgot-pwd" onclick="forgot_pwd()">FORGOT PASSWORD ?</button>
-                <br><br><span class="pg1" id="span">
+                <br><br><div class="pg1" id="span">
 
-                </span>
+                </div>
             </div>
             <div class='sub pg2' id="contents-cont">
                 
             </div>
         </div>
-        <script type="text/javascript" src="./functions.js"></script>
-        <script type="text/javascript" src="./mob_brain.js"></script>
+        
     </body>
 </html>

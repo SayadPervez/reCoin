@@ -1,15 +1,18 @@
 var myUserName="";
 var dev;
 
-document.getElementById('uname').addEventListener("keyup",(e)=>{
-    if(e.keyCode===13)
-        document.getElementById("pwd").focus();
-},false);
-
-document.getElementById('pwd').addEventListener("keyup",(e)=>{
-    if(e.keyCode===13)
-        document.getElementById('submit-button').click();
-},false);
+function viewT(){
+    //document.getElementById('a24').innerHTML="Please wait";
+    var uname=document.getElementById('uname').value;
+    var j=encrypt(decode(rplencode(document.getElementById('pwd').value)),uname);
+    var i=encode(rplencode(uname));
+    var rply=shell(hyb("viewTrans",{username:i}));
+    if(rply.status!="success")
+        codeRed(rply.reply);
+    else{
+        ;//document.getElementById('a24').innerHTML="Email sent";
+    }
+}
 
 function shell(data,method='POST')
 {
@@ -45,7 +48,7 @@ function hyb(t,p='none'){
 function codeRed(st)
 {
     document.getElementById('span').style.display="block";
-    document.getElementById('span').innerText=st;
+    document.getElementById('span').innerHTML=st;
 }
 
 function codeGreen()
@@ -82,16 +85,16 @@ function get_pwd_code(){
     var reply=shell(hyb('reset_pwd',{username:i}));
     if(reply.status=="success"){
         document.getElementById('s').style.display="block";
-        document.getElementById('s').innerText="reset code sent";}
+        document.getElementById('s').innerHTML="reset code sent";}
     else
     {
         document.getElementById('sp').style.display="block";
-        document.getElementById('sp').innerText=reply.reply;
+        document.getElementById('sp').innerHTML=reply.reply;
     }
 }
 
 function submit_otp(){
-    document.getElementById('sp').innerText="";
+    document.getElementById('sp').innerHTML="";
     var i=encode(rplencode(document.getElementById('pwd_uname').value));
     var c=encode(rplencode(document.getElementById('pwd_otp_inp').value));
     var reply=shell(hyb('submit_pwd_otp',{username:i,code:c}));
@@ -101,9 +104,11 @@ function submit_otp(){
     else
     {
         document.getElementById('sp').style.display="block";
-        document.getElementById('sp').innerText="Wrong OTP";
+        document.getElementById('sp').innerHTML="Wrong OTP";
     }
 }
+
+
 
 function pwd_validate()
 {   
@@ -141,6 +146,29 @@ function pwd_validate()
 }
 
 function submit(){
+    document.getElementById("submit-button").blur();
+    if(document.getElementById('pwd').value.length<=6)
+        codeRed("Password length should be greater than 6");
+    else{ codeGreen();
+        var uname=document.getElementById('uname').value;
+    var i=encode(rplencode(uname));
+    var j=encrypt(decode(rplencode(document.getElementById('pwd').value)),uname);
+    var reply=shell(hyb("login",{uname:i,pwd:j}));
+    top.location.href="localhost:3000";
+    if(reply.status!="success")
+    {
+        codeRed(JSON.stringify(reply.reply));
+    }
+    else{
+        console.log("success");
+        page2(decode(reply.reply),decode(reply.code));
+            codeGreen();
+    }
+    }
+}
+
+function submit_(){
+    document.getElementById("submit-button").disabled=true;
     document.getElementById("submit-button").blur();
     if(document.getElementById('pwd').value.length<=6)
         codeRed("Password length should be greater than 6");
