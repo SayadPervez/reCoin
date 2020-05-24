@@ -4,13 +4,21 @@
 
 using namespace std;
 
-int index(string)
+string slice(string st,int s,int e)
 {
-    int n=strlen(s);
+    string ret;
+    for(int i=s;i<e;i++)
+        ret+=st[i];
+    return(ret);
+}
+
+int index(string s)
+{
+    int n=s.size();
     int ret=-1;
     for(int i=0;i<n;i++)
     {
-        if(s[i]==",")
+        if((char)s[i]==',')
             {ret=i;break;}
     }
     return(ret);
@@ -20,14 +28,15 @@ string getAmount(char* argv[])
 {
     ifstream infile;
     string s=argv[1];
-    cout<<s<<"\n";
     int q=index(s);
+    string s1=slice(s,0,q);
+    string s2=slice(s,q+1,s.size());
     string type1, type2, type3, type4;
     infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\db.csv");
-    type3 = "-x-x-x-";
+    type3 = "failure";
     if(!infile.good())
     {
-        return type3;
+        return "failure";
     }
     else
     {
@@ -37,19 +46,14 @@ string getAmount(char* argv[])
             getline(infile,type1,',');
             getline(infile,type2,',');
             getline(infile,type3,',');
-
-            if((type1 == argv[1]) && (type2 == argv[2]))
+            if((type1 == s1) && (type2 == s2))
             {
-                getline(infile,type4,'\n');
                 return type3;
             }
-            getline(infile,type4,'\n');
         }
-        type3 = "-x-x-x-";
-
+        type3 = "failure";
     }
     return type3;
-
 }
 
 
@@ -61,7 +65,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        cout << "no output";
+        cout << "failure";
     }
     return 0;
 }
