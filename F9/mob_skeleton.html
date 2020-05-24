@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title> CLIENT SIDE </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+        <link rel="stylesheet" href="./mob_skin.css">
+        <script src="https://kit.fontawesome.com/943a366770.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <br>
+        <div>
+            <h1 class="header" id="heading">
+            reCoin <i class="fas fa-coins"></i>
+            </h1>
+        </div>
+        <div id='container'>
+            <div class='sub pg1' id="login-cont">
+                <div class='pg1'><h1 class='pg1'>Login Here</h1></div>
+                <div class='pg1'><br>
+                    <form class='pg1' onsubmit="return(false)"><div class="iput pg1"><input class="input pg1" type='text' id='uname' placeholder="Username"></input></div></form>
+                </div><br>
+                <div class='pg1'>
+                    <form class='pg1' onsubmit="return(false)"><div class="iput pg1"><input type=password class="input pg1" id='pwd' placeholder="Password"></input></div></form>
+                </div><br>
+                <button class="button pg1" onclick="submit()" id="submit-button">LOGIN</button><br>
+                <button class="button pg1" id="forgot-pwd" onclick="forgot_pwd()">FORGOT PASSWORD ?</button>
+                <br><br><span class="pg1" id="span">
+
+                </span>
+            </div>
+            <div class='sub pg2' id="contents-cont">
+                
+            </div>
+        </div>
+        <script type="text/javascript" src="./functions.js"></script>
+        <script type="text/javascript" src="./mob_brain.js"></script>
+    </body>
+</html>
