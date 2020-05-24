@@ -1,13 +1,29 @@
-#include <iostream>
-#include <fstream>
-#include <string.h>
+#include<iostream>
+#include<fstream>
+#include<string>
 
 using namespace std;
-string getAmount(char *argv[])
+
+int index(string)
+{
+    int n=strlen(s);
+    int ret=-1;
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]==",")
+            {ret=i;break;}
+    }
+    return(ret);
+}
+
+string getAmount(char* argv[])
 {
     ifstream infile;
+    string s=argv[1];
+    cout<<s<<"\n";
+    int q=index(s);
     string type1, type2, type3, type4;
-    infile.open("C:\\Users\\admin\\OneDrive\\Documents\\alone.csv");
+    infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\db.csv");
     type3 = "-x-x-x-";
     if(!infile.good())
     {
@@ -39,7 +55,7 @@ string getAmount(char *argv[])
 
 int main(int argc, char *argv[])
 {
-    if(argc == 3)
+    if(argc == 2)
     {
         cout << getAmount(argv);
     }
