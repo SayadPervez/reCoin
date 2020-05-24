@@ -74,4 +74,5 @@ int main(int argc, char *argv[])
         cout << "failure";
     }
     return 0;
+}
 
