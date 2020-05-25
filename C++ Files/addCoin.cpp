@@ -88,7 +88,7 @@ string addC(char *argv[])
     {
         if(theMain[i][1]== s1 && theMain[i][2] == s2)
         {
-            temp = stoi(theMain[i][3)+ stoi(s3);
+            temp = stoi(theMain[i][3])+ stoi(s3);
             theMain[i][3]= to_string(temp);
         }
     }
