@@ -101,6 +101,7 @@ string run(char *argv[])
     {
         outfile << theMain[i][j];
     }
+    outfile.close();
     if(count == 1)
     {
         return "success";
