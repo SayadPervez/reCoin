@@ -27,7 +27,7 @@ int nlines()
         }
     }
     infile.close();
-    return count_n+1;
+    return count_n;
 }
 
 int index(string s)
@@ -85,22 +85,37 @@ string run(char *argv[])
            
     }
     infile.close();
-    for(i = 0;i < No_line; i++)
+    cout<<No_line<<"\n\n.\n";
+    /*
+    for(i = 0;i < No_line-1; i++)
     for(j = 0;i < 5; i++)
     {
         if(theMain[i][j] == s1)
         {
             theMain[i][j+1] = s2;
-            count++;
+            break;
+        }
+    }*/
+    for (i=0;i<No_line;i++)
+    {
+        if(theMain[i][1]==s1)
+        {
+            theMain[i][2]=s2;
+            break;
         }
     }
+    string final="";
+    for (i=0;i<No_line-1;i++)
+    {
+        for(j=0;j<5;j++)
+        {
+            final+=(theMain[i][j]+",");
+        }final+="\b \n";
+    }
+    cout<<"\n.\n"<<final<<"\n.\n";
     ofstream outfile;
     outfile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
-    for(i = 0;i < No_line; i++)
-    for(j = 0;i < 5; i++)
-    {
-        outfile << theMain[i][j];
-    }
+    outfile<<final;
     outfile.close();
     if(count == 1)
     {
