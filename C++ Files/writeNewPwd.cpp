@@ -37,7 +37,7 @@ string run(char *argv[])
     string s1= slice(s,0,q);
     string s2= slice(s,q+1,s.size());
     string type1, type2, type3, type4, type5;
-    infile.open("C:\\Users\\srise\\OneDrive\\Documents\\db.csv");
+    infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
     if(!infile.good())
     {
         return "failure";
@@ -55,6 +55,10 @@ string run(char *argv[])
                 getline(infile,type3,',');
                 type3 = s2;
                 Whole_file = Whole_file + type3 + t;
+                getline(infile,type4,',');
+                Whole_file = Whole_file + type4 + t;
+                getline(infile,type5,'\n');
+                Whole_file = Whole_file + type5 + l;
                 count++;
             }
             else
@@ -63,16 +67,15 @@ string run(char *argv[])
                 Whole_file = Whole_file + type3 + t;
                 getline(infile,type4,',');
                 Whole_file = Whole_file + type4 + t;
-                getline(infile,type4,'\n');
+                getline(infile,type5,'\n');
                 Whole_file = Whole_file + type5 + l;
-
             }
         }
 
     }
     infile.close();
     ofstream outfile;
-    outfile.open("C:\\Users\\srise\\OneDrive\\Documents\\db.csv");
+    outfile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
     outfile << Whole_file;
     if(count == 1)
     {
@@ -88,11 +91,11 @@ int main(int argc, char *argv[])
 {
     if(argc == 2)
     {
-        printf("%s",run(argv));
+        cout<<run(argv);
     }
     else
     {
-        printf("failure");
+        cout<<"failure";
     }
     return 0;
 }
