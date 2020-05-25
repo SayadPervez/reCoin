@@ -1,0 +1,308 @@
+html{
+    font-family: Verdana, Geneva, Tahoma, monospace;
+    color: black;
+    /*background-image: linear-gradient(180deg,#8725F5,#6d00f5);*/
+    background-image: linear-gradient(45deg, #552586,#6A359C,#804FB3,#6A359C,#552586);
+    /*background-image: linear-gradient(45deg,rgb(100, 46, 201),#8725F5);*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+#title-cont{
+    display:grid;
+    grid-template-columns: 30% 40% 30%;
+    grid-gap: 3px;
+    height:9%;
+    margin:2px;
+}
+
+.sub{
+    background-color:  #FFD700;
+    height:90%;
+    padding :2px 4px;
+    min-width:70%;
+    max-width: fit-content;
+    border: solid 1.5px black;
+    border-radius: 16px;
+    margin:2px auto;
+    text-align: center;
+    box-shadow: 10px 10px 5px 2px #111111;
+}
+
+#cpy-button{
+    border:2px solid black;
+    border-radius: 7px;
+    font-size:32px;
+    color:#FFD700;
+    background-color: #131313;
+}
+
+h1{
+    text-align: center;
+}
+
+.header{
+    -webkit-text-stroke: 1px black;
+    position: relative;
+    bottom: 25%;
+    color: #FFD700;
+    font-size:48px;
+}
+
+#login-cont{
+    text-align: center;
+}
+
+.name__{
+    font-size:21px;
+}
+
+.metaData{
+    font-weight: bolder;
+    font-size:17px;
+    padding:10px 10px;
+    border: 2px solid black;
+    background: transparent;
+    width:78%;
+    border-radius:12px;
+    margin:12px auto;
+    box-shadow: 5px 5px 1px 0.5px #222020;
+}
+
+.iput{
+    border:2px solid black;
+    width:80%;
+    height:7%;
+    border-radius: 10px;
+    padding:4px 4px;
+    margin:0px auto;
+}
+
+.button{
+    width:60%;
+    height:9%;
+    border:2px solid black;
+    border-radius: 10px;
+    font-weight:bolder;
+    color:#FFD700;
+    background-color: #131313;
+    box-shadow: 5px 5px 1px 0.5px #222020;
+    margin:0px auto;
+}
+
+#submit-button{
+    width:60%;
+    height:7%;
+    border:2px solid black;
+    border-radius: 10px;
+    font-weight:bolder;
+    color:#FFD700;
+    background-color: #131313;
+    box-shadow: 5px 5px 1px 0.5px #222020;
+}
+
+.big{
+    font-size: 48px;
+    margin:0px auto;
+}
+
+.input{
+    width:100%;
+    height:100%;
+    padding:2px 2px;
+    font-size: larger;
+    font-weight: bolder;
+    background: transparent;
+    border:0px solid transparent;
+    border-radius: 10px;
+}
+
+#span{
+    color: red;
+    font-weight: bolder;
+}
+
+#container{
+    height:fit-content;
+    min-height: 90%;
+    display:grid;
+    grid-template-columns: 10% 36% 8% 36% 10%;
+}
+
+
+
+
+#search{
+    height:45px;
+    min-width:45px;
+    max-width: 90%;
+    background-color:#111111 ;
+    border:1px solid #FFD700;
+    font-size:30px;
+    box-shadow: 7px 7px 3px 1px #111111;
+}
+
+
+
+.pp{
+    margin:4px 4px;
+    border:2px solid darkblue;
+    height: 90%;
+    box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.24);
+}
+
+#sIcon{
+    color:#FFD700;
+}
+
+.button:hover{
+    box-shadow: 5px 5px 1px 0.5px #222020; 
+    transition: 0.2s all; 
+}
+
+.button:active { 
+    transform: scale(0.75);
+    /* Scaling button to 0.98 to its original size */ 
+    box-shadow: 5px 5px 1px 0.5px #222020; 
+    /* Lowering the shadow */ 
+} 
+
+#tsp{
+    font-weight: bolder;
+    color: red;
+}
+
+#rstotp{
+    font-weight: bolder;
+    color: red;
+}
+
+.btn:hover{
+    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); 
+    transition: 0.2s all; 
+}
+
+.btn:active { 
+    transform: scale(0.93); 
+    /* Scaling button to 0.98 to its original size */ 
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); 
+    /* Lowering the shadow */ 
+} 
+
+.hvr:hover{
+    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+    border:2px solid black;
+}
+
+.c:hover{
+    border:2px solid black;
+}
+
+.c{
+    width:99%;
+    min-height:5em;
+    max-height: fit-content;
+    overflow: auto;
+    border:2px solid darkblue;
+    margin: 1em auto;
+    padding:2px;
+    background-image: linear-gradient(45deg,white,#eeeeee,#00e5e5,#30fafa,#0bff96);
+}
+
+.j{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px 0px;
+}
+
+.h{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px 0px;
+}
+.l{
+    display:none;
+}
+.p{
+    display:none;
+}
+/*background-image: linear-gradient(45deg,#2c32aa,#777bca); -> a good puple gradient*/
+
+/* Below lines keep yellow autocomplete yellow */
+/**/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+/**/
+
+/*placeholder mods down here...*/
+
+.input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    font-weight: bolder;
+    opacity: 1; /* Firefox */
+  }
+
+  .input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #FFD700;
+    font-weight: bolder;
+    }
+    
+    .input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #FFD700;
+    font-weight: bolder;
+    }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #FFD700;
+    font-weight: bolder;
+    opacity: 1; /* Firefox */
+  }
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+color: #FFD700;
+font-weight: bolder;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+color: #FFD700;
+font-weight: bolder;
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border:1px solid black;
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: darkcyan; 
+    border: 1px solid black;
+    border-radius: 10px;
+    
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: darkblue; 
+  }
+/*to nullify spin arrows in amount*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+}
