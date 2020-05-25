@@ -3,7 +3,7 @@
 #include<fstream>
 
 using namespace std;
-
+string theMain[5000][5];
 string slice(string st, int s, int e)
 {
     string ret;
@@ -17,7 +17,7 @@ int nlines()
     ifstream infile;
     char ch;
     int count_n=0;
-    infile.open("");
+    infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
     while(!infile.eof())
     {
         infile.get(ch);
@@ -50,11 +50,10 @@ string run(char *argv[])
     string l = "\n";
     string Whole_file = "";
     int q = index(s);
-    int count = 0,actual = 0;
+    int count = 0,i,j;
     int No_line = nlines();
     string s1= slice(s,0,q);
     string s2= slice(s,q+1,s.size());
-    string type1, type2, type3, type4, type5;
     ifstream infile;
     infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
     if(!infile.good())
@@ -63,59 +62,45 @@ string run(char *argv[])
     }
     else
     {
-        while(!infile.eof())
+        while(infile.good())
         {
-            getline(infile,type1,',');
-            Whole_file = Whole_file + type1 + t;
-            getline(infile,type2,',');
-            Whole_file = Whole_file + type2 + t;
-            if((type2 == s1))
-            {    
-                getline(infile,type3,',');
-                type3 = s2;
-                Whole_file = Whole_file + type3 + t;
-                getline(infile,type4,',');
-                Whole_file = Whole_file + type4 + t;
-                if(actual = No_line - 1)
-                {
-                    getline(infile,type5);
-                    Whole_file = Whole_file + type5;
-
-                }
-                else
-                {
-                    getline(infile,type5,'\n');
-                    Whole_file = Whole_file + type5 + l;
-                    actual++;
-                }
-                count++;
-            }
-            else
+            for(int i=0;i< No_line;i++)
             {
-                getline(infile,type3,',');
-                Whole_file = Whole_file + type3 + t;
-                getline(infile,type4,',');
-                Whole_file = Whole_file + type4 + t;
-                if(actual = No_line - 1)
+                for(int j=0;j<5;j++)
                 {
-                    getline(infile,type5);
-                    Whole_file = Whole_file + type5;
 
-                }
-                else
-                {
-                    getline(infile,type5,'\n');
-                    Whole_file = Whole_file + type5 + l; 
-                    actual++;
+                    if(j == 4 && i == No_line - 1)
+                    getline(infile,theMain[i][j]);
+                    else if(j==4)
+                    getline(infile,theMain[i][j],'\n');
+                    else
+                    {
+                       getline(infile,theMain[i][j],',');
+                    }
+                    
                 }
             }
-        }
 
+        }
+           
     }
     infile.close();
+    for(i = 0;i < No_line; i++)
+    for(j = 0;i < 5; i++)
+    {
+        if(theMain[i][j] == s1)
+        {
+            theMain[i][j+1] = s2;
+            count++;
+        }
+    }
     ofstream outfile;
     outfile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
-    outfile << Whole_file;
+    for(i = 0;i < No_line; i++)
+    for(j = 0;i < 5; i++)
+    {
+        outfile << theMain[i][j];
+    }
     if(count == 1)
     {
         return "success";
