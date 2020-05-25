@@ -4,12 +4,31 @@
 
 using namespace std;
 
+string theMain[4][5];
 string slice(string st, int s, int e)
 {
     string ret;
     for(int i=s;i<e;i++)
         ret+=st[i];
     return(ret);
+}
+
+int nlines()
+{
+    ifstream infile;
+    char ch;
+    int count_n=0;
+    infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
+    while(!infile.eof())
+    {
+        infile.get(ch);
+        if(ch == '\n')
+        {
+            count_n++;
+        }
+    }
+    infile.close();
+    return count_n;
 }
 
 int index(string s, int g)
@@ -32,10 +51,10 @@ string transfer(char *argv[])
     int p = index(s,q);
     int temp;
     int count = 0;
+    int No_line = nlines();
     string s1= slice(s,0,q);
     string s2= slice(s,q+1,p);
     string s3= slice(s,p+1,s.size());
-    string type1, type2, type3, type4;
     infile.open("C:\\Users\\srise\\OneDrive\\Documents\\db.csv");
     if(!infile.good())
     {
@@ -43,43 +62,60 @@ string transfer(char *argv[])
     }
     else
     {
-        while(!infile.eof())
+        while(infile.good())
         {
-            getline(infile,type1,',');
-            getline(infile,type1,',');
-            if(type1 == s1)
+            for(int i=0;i< No_line;i++)
             {
-                getline(infile,type2,',');
-                getline(infile,type3,',');
-                int size = type3.size();
-                infile.seekg((-size),ios::cur);
-                temp = stoi(type3) - stoi(s3);
-                type3= to_string(temp);
-                infile << type3;
-                getline(infile,type4,'\n');
-                count++;
+                for(int j=0;j<5;j++)
+                {
+
+                    if(j == 4 && i == No_line - 1)
+                    getline(infile,theMain[i][j]);
+                    else if(j==4)
+                    getline(infile,theMain[i][j],'\n');
+                    else
+                    {
+                       getline(infile,theMain[i][j],',');
+                    }
+                    
+                }
             }
-            else if(type1 == s2)
-            {
-                getline(infile,type2,',');
-                getline(infile,type3,',');
-                int size = type3.size();
-                infile.seekg((-size),ios::cur);
-                temp = stoi(type3)+ stoi(s3);
-                type3= to_string(temp);
-                infile << type3;
-                getline(infile,type4,'\n');
-                count++;
-            }
-            else
-            {
-                getline(infile,type2,',');
-                getline(infile,type3,',');
-                getline(infile,type4,'\n');
-            }
+
         }
     }
     infile.close();
+    for(int i= 0; i < No_line;i++)
+    {
+        if (theMain[i][1] == s1)
+        {
+            temp = stoi(theMain[i][3]) - stoi(s3);
+            theMain[i][3]= to_string(temp);
+            count++;
+        }
+        if (theMain[i][1] == s2)
+        {
+            temp = stoi(theMain[i][3]) + stoi(s3);
+            theMain[i][3]= to_string(temp);
+            count++;
+        }
+    }
+    string final="";
+    for (int i=0;i<No_line-1;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            final+=(theMain[i][j]);
+            if(j!=4)
+            {
+                final+=",";
+            }
+        }final+="\n";
+    }
+    
+    ofstream outfile;
+    outfile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
+    outfile<<final;
+    outfile.close();
     if(count == 2)
     {
         return "success";
