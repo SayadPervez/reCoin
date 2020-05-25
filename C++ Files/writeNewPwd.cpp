@@ -12,6 +12,24 @@ string slice(string st, int s, int e)
     return(ret);
 }
 
+int nlines()
+{
+    ifstream infile;
+    char ch;
+    int count_n=0;
+    infile.open("");
+    while(!infile.eof())
+    {
+        infile.get(ch);
+        if(ch == '\n')
+        {
+            count_n++;
+        }
+    }
+    infile.close();
+    return count_n+1;
+}
+
 int index(string s)
 {
     int n=s.size();
@@ -27,16 +45,17 @@ int index(string s)
 
 string run(char *argv[])
 {
-    ifstream infile;
     string s= argv[1];
     string t = ",";
     string l = "\n";
     string Whole_file = "";
     int q = index(s);
-    int count = 0;
+    int count = 0,actual = 0;
+    int No_line = nlines();
     string s1= slice(s,0,q);
     string s2= slice(s,q+1,s.size());
     string type1, type2, type3, type4, type5;
+    ifstream infile;
     infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
     if(!infile.good())
     {
@@ -57,8 +76,18 @@ string run(char *argv[])
                 Whole_file = Whole_file + type3 + t;
                 getline(infile,type4,',');
                 Whole_file = Whole_file + type4 + t;
-                getline(infile,type5,'\n');
-                Whole_file = Whole_file + type5 + l;
+                if(actual = No_line - 1)
+                {
+                    getline(infile,type5);
+                    Whole_file = Whole_file + type5;
+
+                }
+                else
+                {
+                    getline(infile,type5,'\n');
+                    Whole_file = Whole_file + type5 + l;
+                    actual++;
+                }
                 count++;
             }
             else
@@ -67,8 +96,18 @@ string run(char *argv[])
                 Whole_file = Whole_file + type3 + t;
                 getline(infile,type4,',');
                 Whole_file = Whole_file + type4 + t;
-                getline(infile,type5,'\n');
-                Whole_file = Whole_file + type5 + l;
+                if(actual = No_line - 1)
+                {
+                    getline(infile,type5);
+                    Whole_file = Whole_file + type5;
+
+                }
+                else
+                {
+                    getline(infile,type5,'\n');
+                    Whole_file = Whole_file + type5 + l; 
+                    actual++;
+                }
             }
         }
 
