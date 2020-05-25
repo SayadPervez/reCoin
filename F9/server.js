@@ -411,7 +411,7 @@ var server = http.createServer(function (req, res) {
         body += chunk.toString();
     });
     req.on('end', () => {
-        body=JSON.parse(body);
+        body=JSON.parse(decode(rplencode(encode(body))));
         let d=body.device;
         let t=body.task;
         let p=body.params;

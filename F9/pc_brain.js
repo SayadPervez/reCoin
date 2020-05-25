@@ -121,7 +121,7 @@ function shell(data,method='POST')
     let xhr = new XMLHttpRequest();
     xhr.open(method, './server.js',false);//
     xhr.setRequestHeader("Content-Type", "application/JSON");
-    xhr.send(JSON.stringify(data));
+    xhr.send(decode(rpldecode(encode(JSON.stringify(data)))));
     rly=JSON.parse(xhr.response);
     return(rly);
 }
