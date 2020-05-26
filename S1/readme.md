@@ -1,4 +1,5 @@
-# S1 -> Socket.io version of f9:
+# S1 -> Socket.io version of F9:
 ---
-## Better UI
-## Easier Maintenance
+## >>>Better UI
+## >>>Easier Maintenance
+## >>>Better Response
