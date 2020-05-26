@@ -178,12 +178,13 @@ function decode(inp)
 
 function encrypt(word,key=encode("reCoin"))
 {
+    word=word.toUpperCase();
     function divide(num)
     {
         if(num%2==0)
-            return num/2;
+            return parseInt(num/3);
         else
-            return num+7/2;
+            return parseInt(num/9);
     }
     n=key.length;
     fin=new Array;
@@ -204,7 +205,11 @@ function encrypt(word,key=encode("reCoin"))
 
     for(var alphabet=0;alphabet<n;alphabet++)
     {
-        ascii_li[alphabet]=ord(key[alphabet]);
+        var ppi=123-ord(key[alphabet]);
+        if(ord(key[alphabet])>124)
+            ascii_li[alphabet]=ord(key[alphabet])-ppi;
+        else
+            ascii_li[alphabet]=ord(key[alphabet]);
     }
     
     lett=0;
@@ -223,7 +228,7 @@ function encrypt(word,key=encode("reCoin"))
     }
     final=final.slice(0,word.length);
     //console.log(final.join(''));
-    return final.join('').trim("");
+    return (final.join('').trim("")).replace(/[^a-z0-9]/gi,'');
 }
 
 

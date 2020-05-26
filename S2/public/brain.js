@@ -25,8 +25,9 @@ document.getElementById("submit-button").addEventListener('click',()=>{
     {
         document.getElementById('span').innerHTML="Please Wait...";
         var u=document.getElementById("uname").value;
-        var p=encrypt(decode(rplencode(document.getElementById('pwd').value)),u);
-        socket.emit("login",{uname:encode(rplencode(u)),pwd:p});
+        sha256(encode(rplencode(document.getElementById('pwd').value))).then((p)=>{
+            socket.emit("login",{uname:encode(rplencode(u)),pwd:p});
+        }); 
     }
     else
     {
@@ -36,11 +37,11 @@ document.getElementById("submit-button").addEventListener('click',()=>{
 function submit(){
     if(document.getElementById('pwd').value.length>6)
     {
-        console.log("fjksdvlsd");
         document.getElementById('span').innerHTML="Please Wait...";
         var u=document.getElementById("uname").value;
-        var p=encrypt(decode(rplencode(document.getElementById('pwd').value)),u);
-        socket.emit("login",{uname:encode(rplencode(u)),pwd:p});
+        sha256(encode(rplencode(document.getElementById('pwd').value))).then((p)=>{
+            socket.emit("login",{uname:encode(rplencode(u)),pwd:p});
+        });
     }
     else
     {
@@ -71,8 +72,9 @@ function pwd_validate()
     {
         document.getElementById('pwd_no_match').innerHTML="Please wait...";
         document.getElementById('pwd_no_match').style.display="block";
-        var j=encrypt(decode(rplencode(document.getElementById('pwd').value)),myUserName);
-        socket.emit('pwd_validate',{uname:encode(myUserName),pwd:j});
+        sha256(encode(rplencode(document.getElementById('np1').value))).then((j)=>{
+            socket.emit('pwd_validate',{uname:encode(myUserName),pwd:j});
+        });
     }
     else if(document.getElementById('np1').value!=document.getElementById('np2').value)
     {
@@ -103,12 +105,18 @@ function T(){
     socket.emit("T",{uname:encode(rplencode(myUserName))});
 }
 function totp(){
+    if(Number(document.getElementById("tAmt").value)<=amount_)
+    {
     document.getElementById("tsp").innerHTML="Please wait...";
     amount_=document.getElementById("tAmt").value;
     rec_ver=document.getElementById("to_").value;
     x=encode(rpldecode(document.getElementById("tAmt").value));
     y=encode(rplencode(document.getElementById("to_").value));
     socket.emit("totp",{r_uname:y,s_uname:rplencode(myUserName),amt:x});
+    }
+    else{
+        document.getElementById("tsp").innerHTML="Insufficient Balance";
+    }
 }
 function resendTOTP(){
     document.getElementById("rstotp").innerHTML="Please wait...";
@@ -117,9 +125,9 @@ function resendTOTP(){
     socket.emit("rstotp",{r_uname:y,s_uname:rplencode(myUserName),amt:x});
 }
 function submitTOTP(){
-    document.getElementById("rstotp").innerHTML="Please wait...";
+    document.getElementById("rstotp").innerHTML="Please wait...<br>If you get Email verification<br>transfer but page is still loading<br>Click Login Page button to continue";
     var x=document.getElementById("o_t_p").value;
-    socket.emit("submitTOTP",{uname:rplencode(myUserName),otp:encode(x)});
+    socket.emit("submitTOTP_",{uname:rplencode(myUserName),otp:encode(x)});
 }
 //////////////////////////////////////////////////////////////////////////////////
 //              recieve events
@@ -131,7 +139,7 @@ socket.on("login",(data)=>{
         myUserName=document.getElementById('uname');
     }
     else
-        document.getElementById('span').innerHTML="Login Credentials Wrong.<br>Please retry !";
+        document.getElementById('span').innerHTML=data.err;
 });
 
 socket.on("forgot-pwd",(data)=>{
@@ -194,6 +202,7 @@ socket.on("viewT",(data)=>{
 socket.on("T",(data)=>{
     if(data.status=="success"){
         document.getElementById("contents-cont").innerHTML=data.cont;
+        amount_=data.amt;
     }
     else{
         document.getElementById("a24").innerHTML="Unknown Error<br>Try Again";
@@ -207,7 +216,7 @@ socket.on("totp",(data)=>{
     }
     else
     {
-        document.getElementById("tsp").innerHTML="Unkown Error<br>Please try again";
+        document.getElementById("tsp").innerHTML=data.err;
     }
 });
 
@@ -222,7 +231,7 @@ socket.on("rstotp",(data)=>{
     }
 });
 
-socket.on("submitTOTP",(data)=>{
+socket.on("submitTOTP_",(data)=>{
     if(data.status=="success")
     {
         document.getElementById("o_t_p").disabled=true;
@@ -258,4 +267,11 @@ function metaData(){
      REC ECE (2019 TO 2023)<br>
      <span style="color:darkblue;">srisethu7@gmail.com</span><br><br></div>`;
      document.getElementById('contents-cont').innerHTML=htmlRender;
+}
+async function sha256(message) {
+    const msgBuffer = new TextEncoder('utf-8').encode(message); 
+    const hashBuffer =await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));                
+    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+    return hashHex;
 }

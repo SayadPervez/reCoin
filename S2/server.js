@@ -4,19 +4,14 @@ var path = require('path');
 const fs=require('fs');
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var coins=1009;
+var coins=0;
 var resetJson={};
 var transJson={};
 var transactionsData={};
 
 eval(fs.readFileSync('./public/functions.js')+'');
 
-var pc_log_content=`<h1>Logged In<br><br>Your Balance:<br>
-<span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
-<button onclick="submit()" id="rf" class="button">Refresh</button><br><br>
-<button id="T" onclick="T()" class="button">Transfer</button><br><br>
-<button id="viewT" onclick="viewT()" class="button">Mail My Transactions</button>
-<br><br><br><div id="a24" style="font-weight:bolder;color:red;"></div>`;
+
 var pc_log_code=`
     document.getElementById('span').innerHTML="";
     document.getElementById("uname").disabled=true;
@@ -54,12 +49,6 @@ var pc_chpwd_content=`<h1>Reset Password:</h1><br><br>
     
 </span><br><br>
 <button class="button" id='a99' onclick="pwd_validate()">Confirm Change</button>`;
-var pc_transpage=`<h1>Tranfers Coins<br><br>Your Balance:<br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
-<form onsubmit="return(false)"><div class="iput" id="t_amt"><input class="input" id='tAmt' placeholder="Amount" type="number" min="0" step="1" max="${coins}"></input></div></form>
-<form onsubmit="return(false)"><div class="iput" id="to_i"><input class="input" id='to_' placeholder="Transfer to"></input></div></form><br>
-<button class="button" onclick="totp()">Send Confirmation Code</button><br><br>
-<span id="tsp" class="span">
-</span>`;
 
 function vMail(subject,reciever){
   const execSync = require('child_process').execSync;
@@ -88,17 +77,39 @@ function pwdch(uname){
 
 app.use(express.static('./public'));
 
-
 io.on('connection', (socket) => {
   console.log('a user connected',socket.id);
 
   socket.on("login",(x)=>{
-    var status="success";
+    if("success" === vid(rpldecode(decode(x.uname))).slice(0,7))
+    {
+      if(getAmount(rpldecode(decode(x.uname)),hashit(x.pwd)).slice(0,7)!="failure")
+      {
+        var status="success";
+        var e="none";
+        coins=getAmount(rpldecode(decode(x.uname)),hashit(x.pwd));
+        var pc_log_content=`<h1>Logged In<br><br>Your Balance:<br>
+<span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
+<button onclick="submit()" id="rf" class="button">Refresh</button><br><br>
+<button id="T" onclick="T()" class="button">Transfer</button><br><br>
+<button id="viewT" onclick="viewT()" class="button">Mail My Transactions</button>
+<br><br><br><div id="a24" style="font-weight:bolder;color:red;"></div>`;
+      }
+      else{
+        var status="failure";
+        var e="Check Password";
+      }
+    }
+    else{
+      var status="failure";
+      var e="Invalid Username";}
+      
     console.log("LOGIN");
-    io.sockets.emit("login",{status:status,cont:pc_log_content,code:pc_log_code});
+    io.sockets.emit("login",{status:status,err:e,cont:pc_log_content,code:pc_log_code});
   });
 
   socket.on("forgot-pwd",(x)=>{
+    var u=rpldecode(decode(x.uname));
     var status="success";
     console.log("FORGOT-PWD");
     io.sockets.emit("forgot-pwd",{status:status,cont:pc_fgpwd_content,code:pc_fgpwd_code});
@@ -107,10 +118,16 @@ io.on('connection', (socket) => {
   socket.on("get_pwd_code",(x)=>{
     var uname=rpldecode(x.uname);
     console.log(uname);
-    var status="success";
-    var x=vMail("reset password",uname);
-    add_reset(uname+"\n",x);
-    io.sockets.emit("get_pwd_code",{status:status});
+    if("success"==vid(uname).slice(0,7))
+      {var status="success";
+      var arr="none";var x=vMail("reset password",uname);
+      add_reset(uname+"\n",x);}
+    else{
+      var status="failure";
+      var arr="Invalid Username";
+    }
+    
+    io.sockets.emit("get_pwd_code",{status:status,err:arr});
   });
 
   socket.on("submit_pwd_otp",(x)=>{
@@ -133,6 +150,7 @@ io.on('connection', (socket) => {
 
   socket.on("pwd_validate",(x)=>{
     pwdch(decode(x.uname));
+    writeNewPwd(decode(x.uname),hashit(x.pwd));
     io.sockets.emit("pwd_validate",{status:"success"});
   });
 
@@ -143,13 +161,27 @@ io.on('connection', (socket) => {
   });
 
   socket.on("T",(x)=>{
-    io.sockets.emit("T",{status:"success",cont:pc_transpage});
+    coins=getCoins(rpldecode(decode(x.uname)));
+    var pc_transpage=`<h1>Tranfers Coins<br><br>Your Balance:<br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
+<form onsubmit="return(false)"><div class="iput" id="t_amt"><input class="input" id='tAmt' placeholder="Amount" type="number" min="0" step="1" max="${coins}"></input></div></form>
+<form onsubmit="return(false)"><div class="iput" id="to_i"><input class="input" id='to_' placeholder="Transfer to"></input></div></form><br>
+<button class="button" onclick="totp()">Send Confirmation Code</button><br><br>
+<span id="tsp" class="span">
+</span>`;
+    io.sockets.emit("T",{status:"success",cont:pc_transpage,amt:coins});
   });
 
   socket.on("totp",(x)=>{
     var amount=rplencode(decode(x.amt));
     var to_=rpldecode(decode(x.r_uname));
     var from_=rpldecode(x.s_uname);
+    if("success"!=vid(to_).slice(0,7))
+    {
+      var status="failure";
+      var arr="Invalid Reciever Email";
+      io.sockets.emit('totp',{status:status,err:arr});
+    }
+    else{
     var q=uscape(tMail(amount,from_,to_));
     add_trans(from_,q);
     addTransactionData(from_,to_,amount);
@@ -159,7 +191,7 @@ io.on('connection', (socket) => {
 <button class="button" id="a2" onclick="resendTOTP()">Resend OTP</button><br><br>
 <span id=rstotp></span>`;
     io.sockets.emit('totp',{status:"success",cont:pc_trans_final});
-    console.log("TDATA: "+JSON.stringify(transactionsData));
+    console.log("TDATA: "+JSON.stringify(transactionsData));}
   });
 
   socket.on("rstotp",(x)=>{
@@ -173,7 +205,7 @@ io.on('connection', (socket) => {
     console.log("TDATA: "+JSON.stringify(transactionsData));
   });
 
-  socket.on("submitTOTP",(x)=>{
+  socket.on("submitTOTP_",(x)=>{
     var u=rpldecode(x.uname);
     var codex=decode(x.otp);
     var w=get_trans(u);
@@ -184,6 +216,7 @@ io.on('connection', (socket) => {
       var v=completeTransaction(u);
       recordTransactions(v,"success");
       v=v.split(",");
+      transferCoin(v[0],v[1],v[2]);
       cMail(v[0],v[1],v[2]);
     }
     else{
@@ -239,4 +272,41 @@ function get_trans(uname)
 function recordTransactions(one_Transaction,status)
 {
     fs.appendFileSync("./transactiondata.csv",`${one_Transaction},${status}\n`);
+}
+
+function vid(uname){
+  const execSync = require('child_process').execSync;
+  const output = execSync("vid.exe "+`"${uname}"`, { encoding: 'utf-8' });
+  return(uscape(output));
+}
+
+function getAmount(uname,pwd){
+  const execSync = require('child_process').execSync;
+  const output = execSync("getAmount.exe "+`"${uname},${pwd}"`, { encoding: 'utf-8' });
+  return(uscape(output));
+}
+
+function getCoins(uname){
+  const execSync = require('child_process').execSync;
+  const output = execSync("getCoins.exe "+`"${uname}"`, { encoding: 'utf-8' });
+  return(uscape(output));
+}
+
+function writeNewPwd(uname,pwd){
+  const execSync = require('child_process').execSync;
+  const output = execSync("writeNewPwd.exe "+`"${uname},${pwd}"`, { encoding: 'utf-8' });
+  return(uscape(output));
+}
+
+function transferCoin(uid_a,uid_b,amt){
+  const execSync = require('child_process').execSync;
+  const output = execSync("transferCoin.exe "+`"${uid_a},${uid_b},${amt}"`, { encoding: 'utf-8' });
+  return(uscape(output));
+}
+
+function hashit(st){
+  const crypto = require('crypto');
+  hash = crypto.getHashes();
+  hashPwd = crypto.createHash('sha1').update(st).digest('hex');
+  return(hashPwd);
 }
