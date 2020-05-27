@@ -17,5 +17,3 @@
 > Output is either "**success**" or "**failure**"
 ---
 ---
-## Hash Cheatsheet:
-> 
