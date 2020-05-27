@@ -232,6 +232,7 @@ socket.on("rstotp",(data)=>{
 });
 
 socket.on("submitTOTP_",(data)=>{
+    console.log(">>>> "+data.status);
     if(data.status=="success")
     {
         document.getElementById("o_t_p").disabled=true;

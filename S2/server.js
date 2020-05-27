@@ -105,14 +105,14 @@ io.on('connection', (socket) => {
       var e="Invalid Username";}
       
     console.log("LOGIN");
-    io.sockets.emit("login",{status:status,err:e,cont:pc_log_content,code:pc_log_code});
+    io.to(socket.id).emit("login",{status:status,err:e,cont:pc_log_content,code:pc_log_code});
   });
 
   socket.on("forgot-pwd",(x)=>{
     var u=rpldecode(decode(x.uname));
     var status="success";
     console.log("FORGOT-PWD");
-    io.sockets.emit("forgot-pwd",{status:status,cont:pc_fgpwd_content,code:pc_fgpwd_code});
+    io.to(socket.id).emit("forgot-pwd",{status:status,cont:pc_fgpwd_content,code:pc_fgpwd_code});
   });
 
   socket.on("get_pwd_code",(x)=>{
@@ -127,7 +127,7 @@ io.on('connection', (socket) => {
       var arr="Invalid Username";
     }
     
-    io.sockets.emit("get_pwd_code",{status:status,err:arr});
+    io.to(socket.id).emit("get_pwd_code",{status:status,err:arr});
   });
 
   socket.on("submit_pwd_otp",(x)=>{
@@ -143,7 +143,7 @@ io.on('connection', (socket) => {
       status="failure";
       cont="none";
     }
-    io.sockets.emit("submit_pwd_otp",{status:status,cont:cont});
+    io.to(socket.id).emit("submit_pwd_otp",{status:status,cont:cont});
     delete resetJson[uscape(uname)];
     console.log(JSON.stringify(resetJson));
   });
@@ -151,13 +151,13 @@ io.on('connection', (socket) => {
   socket.on("pwd_validate",(x)=>{
     pwdch(decode(x.uname));
     writeNewPwd(decode(x.uname),hashit(x.pwd));
-    io.sockets.emit("pwd_validate",{status:"success"});
+    io.to(socket.id).emit("pwd_validate",{status:"success"});
   });
 
   socket.on("viewT",(x)=>{
     var uname=x.uname;
     mailTransactions(rpldecode(decode(uname)));
-    io.sockets.emit("viewT",{status:"success"});
+    io.to(socket.id).emit("viewT",{status:"success"});
   });
 
   socket.on("T",(x)=>{
@@ -168,7 +168,7 @@ io.on('connection', (socket) => {
 <button class="button" onclick="totp()">Send Confirmation Code</button><br><br>
 <span id="tsp" class="span">
 </span>`;
-    io.sockets.emit("T",{status:"success",cont:pc_transpage,amt:coins});
+    io.to(socket.id).emit("T",{status:"success",cont:pc_transpage,amt:coins});
   });
 
   socket.on("totp",(x)=>{
@@ -179,7 +179,7 @@ io.on('connection', (socket) => {
     {
       var status="failure";
       var arr="Invalid Reciever Email";
-      io.sockets.emit('totp',{status:status,err:arr});
+      io.to(socket.id).emit('totp',{status:status,err:arr});
     }
     else{
     var q=uscape(tMail(amount,from_,to_));
@@ -190,7 +190,7 @@ io.on('connection', (socket) => {
 <br><button class="button" id="a1" onclick="submitTOTP()">Confirm Transfer</button><br><br>
 <button class="button" id="a2" onclick="resendTOTP()">Resend OTP</button><br><br>
 <span id=rstotp></span>`;
-    io.sockets.emit('totp',{status:"success",cont:pc_trans_final});
+    io.to(socket.id).emit('totp',{status:"success",cont:pc_trans_final});
     console.log("TDATA: "+JSON.stringify(transactionsData));}
   });
 
@@ -201,7 +201,7 @@ io.on('connection', (socket) => {
     var q=uscape(tMail(amount,from_,to_));
     add_trans(from_,q);
     addTransactionData(from_,to_,amount);
-    io.sockets.emit('rstotp',{status:"success"});
+    io.to(socket.id).emit('rstotp',{status:"success"});
     console.log("TDATA: "+JSON.stringify(transactionsData));
   });
 
@@ -212,7 +212,7 @@ io.on('connection', (socket) => {
     console.log("TDATA: "+JSON.stringify(transactionsData));
     if(codex==uscape(w))
     {
-      status="success";
+      io.to(socket.id).emit("submitTOTP_",{status:"success"});
       var v=completeTransaction(u);
       recordTransactions(v,"success");
       v=v.split(",");
@@ -220,11 +220,11 @@ io.on('connection', (socket) => {
       cMail(v[0],v[1],v[2]);
     }
     else{
-      status="failure";
+      io.to(socket.id).emit("submitTOTP_",{status:"failure"});
       var v=completeTransaction(u);
       recordTransactions(v,"failure");
     }
-    io.sockets.emit("submitTOTP",{status:status});
+    
     delete transJson[u];
     delete transactionsData[u];
   });
