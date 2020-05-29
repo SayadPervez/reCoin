@@ -15,7 +15,7 @@
 > All these languages work together by interacting with underlying the Operating Systems' Command Line
 ---
 ### Files above explained:
-#### "F" series of files employ http protocol for communication. F9 being the latest version in the F-series, it has websites optimized for both Pc and Mobiles. However F-series is not connected to the database and the UI freezes on a HTML request. Due to these reasons the F-series of reCoin is officially terminated.
+#### "F" series of files employ http protocol for communication. F9 being the latest version in the F-series, it has websites optimized for both Pc and Mobiles. However F-series is not connected to the database and the UI freezes on a HTTP request to the server. Due to these reasons the F-series of reCoin is officially terminated.
 #### "S" series of files employ socket.io to communicate with the server and hence promising a better UI and also the project is connected to the DataBase. Mobile View is yet to be optimized for the S-series of reCoin.
 ---
 # Images representing the working of the website:
