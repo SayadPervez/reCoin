@@ -1,4 +1,4 @@
-# reCoin
+<center># reCoin</center>
 ---
 ### Requirements:
 #### Node JS
@@ -19,3 +19,6 @@
 ![Login_Page](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/LOGIN%20PAGE.png?raw=true)
 ![Dev_Info](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/Dev%20Info.png?raw=true)
 ![Logged_In](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/Logged%20In.png?raw=true)
+![Tranfer](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/T1.png?raw=true)
+![totp](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/totp.png?raw=true)
+![totp_mail](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/totp_mail.png?raw=true)
