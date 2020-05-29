@@ -17,3 +17,5 @@
 # Images representing the working of the website:
 ### The website is fully operational. However Peer to Peer Networking requires Multiple server to be setup first.
 ![Login_Page](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/LOGIN%20PAGE.png?raw=true)
+![Dev_Info](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/Dev%20Info.png?raw=true)
+![Logged_In](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/Logged%20In.png?raw=true)
