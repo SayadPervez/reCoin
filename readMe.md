@@ -14,6 +14,10 @@
 #### C++ for faster access to the Database
 > All these languages work together by interacting with underlying the Operating Systems' Command Line
 ---
+### Files above explained:
+#### "F" series of files employ http protocol for communication. F9 being the latest version in the F-series, it has websites optimized for both Pc and Mobiles. However F-series is not connected to the database and the UI freezes on a HTML request. Due to these reasons the F-series of reCoin is officially terminated.
+#### "S" series of files employ socket.io to communicate with the server and hence promising a better UI and also the project is connected to the DataBase. Mobile View is yet to be optimized for the S-series of reCoin.
+---
 # Images representing the working of the website:
 ### The website is fully operational. However Peer to Peer Networking requires Multiple server to be setup first.
 ![Login_Page](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/LOGIN%20PAGE.png?raw=true)
