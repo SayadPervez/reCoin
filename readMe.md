@@ -39,5 +39,5 @@
 ![pwd_changed_mail](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/password%20changed%20mail.png?raw=true)
 ---
 ## Developer's Info
-### [pervez2504@gmail.com => FULL-STACK WEB DEV, BLOCKCHAIN ENGINEER, TEAM LEADER](pervez2504@gmail.com)
-### [srisethu7@gmail.com => DATABASE ANALYST, BLOCKCHAIN ENGINEER](srisethu7@gmail.com)
+#### [pervez2504@gmail.com => FULL-STACK WEB DEV, BLOCKCHAIN ENGINEER, TEAM LEADER](https://github.com/SayadPervez)
+#### [srisethu7@gmail.com => DATABASE ANALYST, BLOCKCHAIN ENGINEER](https://github.com/sriram2391)
