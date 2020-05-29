@@ -1,4 +1,4 @@
-<center># reCoin</center>
+# reCoin
 ---
 ### Requirements:
 #### Node JS
