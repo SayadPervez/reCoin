@@ -29,3 +29,7 @@
 ![transfer_Mail](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/transfer%20mail.png?raw=true)
 ---
 ### On Clicking Mail My Transactions,
+![view_transaction](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/viewTrans.png?raw=true)
+![trans_data](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/TransData.png?raw=true)
+---
+### On Clicking Forgot Password in the Login Page,
