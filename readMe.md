@@ -5,7 +5,7 @@
 ####    |--------> Socket.io
 ####    |--------> Socket.io-Client
 ####    |---------> Express Module
-#### Python
+#### Python 3.0 or above
 #### Mingw C++ Compiler
 ---
 ### Languages:
