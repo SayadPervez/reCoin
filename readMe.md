@@ -37,5 +37,5 @@
 ![pwd_changed](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/pwd%20changed.png?raw=true)
 ![pwd_changed_mail](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/password%20changed%20mail.png?raw=true)
 ---
-## [pervez2504@gmail.com]
-## [srisethu7@gmail.com]
+## ![pervez2504@gmail.com](pervez2504@gmail.com)
+## ![srisethu7@gmail.com](srisethu7@gmail.com)
