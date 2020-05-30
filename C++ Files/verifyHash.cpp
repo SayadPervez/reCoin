@@ -332,12 +332,12 @@ int nlines()
     return count_n;
 }
 
-std::string HASHB()
+std::string verify()
 {
     ifstream infile;
     infile.open("");
     std::string Whole_file;
-    int count = 1,i,j;
+    int count = 0;
     int No_line = nlines();
     if(!infile.good())
     {
@@ -377,29 +377,28 @@ std::string HASHB()
             s5 = s1 + s2+ s3;
         else
             s5 = s1 + s2+ s3 + s4;
-        theMain[i][4]  = SHA256(s5);
+        if(theMain[i][4]  == SHA256(s5))
+        {
+            count = 1;
+        }
+        else
+        {
+            count = 0;
+        }
 
     }
      for(int i = No_line - 1; i>= 1 ;i++)
      {
-          theMain[i][0] = theMain[i-1][4];
+          if(theMain[i][0] == theMain[i-1][4])
+          {
+              count = 1;
+          }
+          else
+          {
+              count = 0;
+          }
      }
-    std::string final="";
-    for (i=0;i<No_line-1;i++)
-    {
-        for(j=0;j<5;j++)
-        {
-            final+=(theMain[i][j]);
-            if(j!=4){
-                final+=",";
-            }
-        }final+="\n";
-    }
 
-    ofstream outfile;
-    outfile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
-    outfile<<final;
-    outfile.close();
     if(count > 0)
     {
         return "success";
@@ -412,6 +411,7 @@ std::string HASHB()
 int main()
 {
     // Read each line as a hexadecimal string to be hashed
-    cout<< HASHB();
+    cout<< verify();
 
 }
+
