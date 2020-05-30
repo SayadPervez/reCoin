@@ -319,7 +319,7 @@ int nlines()
     ifstream infile;
     char ch;
     int count_n=0;
-    infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
+    infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\C++ Files\\db.csv");
     while(!infile.eof())
     {
         infile.get(ch);
@@ -335,7 +335,7 @@ int nlines()
 std::string HASHB()
 {
     ifstream infile;
-    infile.open("");
+    infile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\C++ Files\\db.csv");
     std::string Whole_file;
     int count = 1,i,j;
     int No_line = nlines();
@@ -367,23 +367,23 @@ std::string HASHB()
     }
     infile.close();
     string s1,s2,s3,s4,s5;
-    for(int i = No_line - 1; i>= 0 ;i++)
+    for(int i=0; i< No_line;i++)
     {
         s1 = SHA256(theMain[i][0]);
         s2 = SHA256(theMain[i][1]);
         s3 = SHA256(theMain[i][2]);
         s4 = SHA256(theMain[i][3]);
-        if(i == No_line -1)
-            s5 = s1 + s2+ s3;
+        if(i==0)
+            s5 = s2+ s3 + s4;
         else
             s5 = s1 + s2+ s3 + s4;
+        
         theMain[i][4]  = SHA256(s5);
-
+        if(i != No_line )
+            theMain[i+1][0] = theMain[i][4];
     }
-     for(int i = No_line - 1; i>= 1 ;i++)
-     {
-          theMain[i][0] = theMain[i-1][4];
-     }
+    string q_=SHA256(theMain[0][1]),q__=SHA256(theMain[No_line-1][4]);
+    theMain[0][0]=SHA256(q_);
     std::string final="";
     for (i=0;i<No_line-1;i++)
     {
@@ -397,7 +397,7 @@ std::string HASHB()
     }
 
     ofstream outfile;
-    outfile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\reCoin-master\\reCoin-master\\C++ Files\\db.csv");
+    outfile.open("P:\\Pvz_Program_Files\\Web_Development\\_reCoin_\\_Boosh C++\\C++ Files\\db.csv");
     outfile<<final;
     outfile.close();
     if(count > 0)
