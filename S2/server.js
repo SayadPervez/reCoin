@@ -12,7 +12,7 @@ var transactionsData={};
 eval(fs.readFileSync('./public/functions.js')+'');
 
 
-var pc_log_code=`
+var pc_log_code=rplencode(`
     document.getElementById('span').innerHTML="";
     document.getElementById("uname").disabled=true;
     document.getElementById("uname").style.backgroundColor="#232323";
@@ -22,8 +22,8 @@ var pc_log_code=`
     document.getElementById("pwd_i").style.backgroundColor="#131313";
     document.getElementById("forgot-pwd").innerText="Change Password";
     document.getElementById("submit-button").innerText="Login Page";
-`;
-var pc_fgpwd_content=`<h1 >Password Reset:</h1><br><br>
+`);
+var pc_fgpwd_content=rplencode(`<h1 >Password Reset:</h1><br><br>
 <form onsubmit="return(false)"><div class="iput" style="display:grid;grid-template-columns: 85% 15%;"><input class="input" id="pwd_uname" placeholder="Username"></input><div class="btn hvr" id='cpy-button' title="COPY username from login section" onclick="copy_uname()"><i class="far fa-copy" style="margin:2px auto;"></i></div></div></form>
 <div style="display: grid;grid-template-columns: 50% 50%;margin: 2px auto;height: 9%;">
 <button class="button" style="width:80%;height:100%;padding:2px 2px;margin: 2px auto;" id="get_otp_via_email" onclick="get_pwd_code()">Get OTP via Email</button>
@@ -31,8 +31,8 @@ var pc_fgpwd_content=`<h1 >Password Reset:</h1><br><br>
 <div id="s" style="display:none;color:red;font-weight: bolder;"></div><br><br>
 <form onsubmit="return(false)"><div class="iput"><input class="input" id="pwd_otp_inp" type="number" min="10000" step="1" max="99999" placeholder="Enter your OTP"></input></div></form>
 <button class="button" onclick="submit_otp()">Submit OTP</button><br><br>
-<div id="sp" style="color:red;font-weight: bolder;"></div>`;
-var pc_fgpwd_code=`
+<div id="sp" style="color:red;font-weight: bolder;"></div>`);
+var pc_fgpwd_code=rplencode(`
 document.getElementById('span').innerHTML="";
 document.getElementById("uname").disabled=true;
 document.getElementById("pwd").disabled=true;
@@ -40,15 +40,15 @@ document.getElementById("uname").style.backgroundColor="#131313";
 document.getElementById("uname_i").style.backgroundColor="#131313";
 document.getElementById("pwd").style.backgroundColor="#131313";
 document.getElementById("pwd_i").style.backgroundColor="#131313";
-`;
-var pc_chpwd_content=`<h1>Reset Password:</h1><br><br>
+`);
+var pc_chpwd_content=rplencode(`<h1>Reset Password:</h1><br><br>
 <form onsubmit="return(false)"><div id='np1_' class="iput" ><input class="input" type="password"  id='np1' placeholder="New Password"></input></div></form><br>
 <form onsubmit="return(false)"><div id='np2_' class="iput" ><input class="input"  type="password" id='np2' placeholder="Re-enter New Password"></input></div></form>
 <br>
 <span id="pwd_no_match" style="color:red;font-weight: bolder;display:none;">
     
 </span><br><br>
-<button class="button" id='a99' onclick="pwd_validate()">Confirm Change</button>`;
+<button class="button" id='a99' onclick="pwd_validate()">Confirm Change</button>`);
 
 function vMail(subject,reciever){
   const execSync = require('child_process').execSync;
@@ -89,12 +89,12 @@ io.on('connection', (socket) => {
         var status="success";
         var e="none";
         coins=getAmount(rpldecode(decode(x.uname)),hashit(x.pwd));
-        var pc_log_content=`<h1>Logged In<br><br>Your Balance:<br>
+        var pc_log_content=rplencode(`<h1>Logged In<br><br>Your Balance:<br>
 <span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
 <button onclick="submit()" id="rf" class="button">Refresh</button><br><br>
 <button id="T" onclick="T()" class="button">Transfer</button><br><br>
 <button id="viewT" onclick="viewT()" class="button">Mail My Transactions</button>
-<br><br><br><div id="a24" style="font-weight:bolder;color:red;"></div>`;
+<br><br><br><div id="a24" style="font-weight:bolder;color:red;"></div>`);
       }
       else{
         var status="failure";
@@ -151,8 +151,9 @@ io.on('connection', (socket) => {
 
   socket.on("pwd_validate",(x)=>{
     pwdch(decode(x.uname));
-    writeNewPwd(decode(x.uname),hashit(x.pwd));
+    //writeNewPwd(decode(x.uname),hashit(x.pwd));
     io.to(socket.id).emit("pwd_validate",{status:"success"});
+    io.sockets.emit("mod",{task:"chpwd",params:JSON.stringify({uname:decode(x.uname),pwd:hashit(x.pwd)})});
   });
 
   socket.on("viewT",(x)=>{
@@ -163,12 +164,12 @@ io.on('connection', (socket) => {
 
   socket.on("T",(x)=>{
     coins=getCoins(rpldecode(decode(x.uname)));
-    var pc_transpage=`<h1>Tranfers Coins<br><br>Your Balance:<br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
+    var pc_transpage=rplencode(`<h1>Tranfers Coins<br><br>Your Balance:<br><span class="big">${coins}  <i class="fas fa-coins"></i></span></h1><br>
 <form onsubmit="return(false)"><div class="iput" id="t_amt"><input class="input" id='tAmt' placeholder="Amount" type="number" min="0" step="1" max="${coins}"></input></div></form>
 <form onsubmit="return(false)"><div class="iput" id="to_i"><input class="input" id='to_' placeholder="Transfer to"></input></div></form><br>
 <button class="button" onclick="totp()">Send Confirmation Code</button><br><br>
 <span id="tsp" class="span">
-</span>`;
+</span>`);
     io.to(socket.id).emit("T",{status:"success",cont:pc_transpage,amt:coins});
   });
 
@@ -186,11 +187,11 @@ io.on('connection', (socket) => {
     var q=uscape(tMail(amount,from_,to_));
     add_trans(from_,q);
     addTransactionData(from_,to_,amount);
-    var pc_trans_final=`<h2>Confirm transfer of <br>${amount} <i class="fas fa-coins"></i> to<br>${to_} </h2><br>
+    var pc_trans_final=rplencode(`<h2>Confirm transfer of <br>${amount} <i class="fas fa-coins"></i> to<br>${to_} </h2><br>
 <form onsubmit="return(false)"><div class="iput" id="_o_t_p_"><input class="input" type="number" id='o_t_p' placeholder="Enter OTP"></input></div></form>
 <br><button class="button" id="a1" onclick="submitTOTP()">Confirm Transfer</button><br><br>
 <button class="button" id="a2" onclick="resendTOTP()">Resend OTP</button><br><br>
-<span id=rstotp></span>`;
+<span id=rstotp></span>`);
     io.to(socket.id).emit('totp',{status:"success",cont:pc_trans_final});
     console.log("TDATA: "+JSON.stringify(transactionsData));}
   });
@@ -217,8 +218,9 @@ io.on('connection', (socket) => {
       var v=completeTransaction(u);
       recordTransactions(v,"success");
       v=v.split(",");
-      transferCoin(v[0],v[1],v[2]);
+      //transferCoin(v[0],v[1],v[2]);
       cMail(v[0],v[1],v[2]);
+      io.sockets.emit("mod",{task:"tfc",params:JSON.stringify({uid_a:v[0],uid_b:v[1],amt:v[2]})});
     }
     else{
       io.to(socket.id).emit("submitTOTP_",{status:"failure"});

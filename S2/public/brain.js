@@ -134,8 +134,8 @@ function submitTOTP(){
 socket.on("login",(data)=>{
     if(data.status=="success")
     {
-        document.getElementById('contents-cont').innerHTML=data.cont;
-        eval(data.code);
+        document.getElementById('contents-cont').innerHTML=rpldecode(data.cont);
+        eval(rpldecode(data.code));
         myUserName=document.getElementById('uname');
     }
     else
@@ -145,8 +145,8 @@ socket.on("login",(data)=>{
 socket.on("forgot-pwd",(data)=>{
     if(data.status=="success")
     {
-        document.getElementById('contents-cont').innerHTML=data.cont;
-        eval(data.code);
+        document.getElementById('contents-cont').innerHTML=rpldecode(data.cont);
+        eval(rpldecode(data.code));
     }
     else
         document.getElementById('span').innerHTML="Some Error Occured.<br>Please retry !";
@@ -164,7 +164,7 @@ socket.on("get_pwd_code",(data)=>{
 socket.on("submit_pwd_otp",(data)=>{
     if(data.status=="success")
     {
-        document.getElementById('contents-cont').innerHTML=data.cont;
+        document.getElementById('contents-cont').innerHTML=rpldecode(data.cont);
     }
     else
         document.getElementById('sp').innerHTML="Wrong OTP<br>Choose resend OTP and<br>Try again... !";
@@ -201,7 +201,7 @@ socket.on("viewT",(data)=>{
 
 socket.on("T",(data)=>{
     if(data.status=="success"){
-        document.getElementById("contents-cont").innerHTML=data.cont;
+        document.getElementById("contents-cont").innerHTML=rpldecode(data.cont);
         amount_=data.amt;
     }
     else{
@@ -212,7 +212,7 @@ socket.on("T",(data)=>{
 socket.on("totp",(data)=>{
     if(data.status=="success")
     {
-        document.getElementById("contents-cont").innerHTML=data.cont;
+        document.getElementById("contents-cont").innerHTML=rpldecode(data.cont);
     }
     else
     {
@@ -255,7 +255,7 @@ function copy_uname(){
     document.getElementById("pwd_uname").value=uname;
 }
 function metaData(){
-    htmlRender=`<h1>Developer's Data</h1><br>
+    htmlRender=`<h1>Developer's Info</h1><br>
     <div class="metaData">
      <span class="name__">Sayad Pervez . B</span><br><br>
      Full Stack Web Developer,<br>
