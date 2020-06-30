@@ -231,5 +231,3 @@ function encrypt(word,key=encode("reCoin"))
     //console.log(final.join(''));
     return (final.join('').trim("")).replace(/[^a-z0-9]/gi,'');
 }
-
-eval(decode("surfhvv1h{lw+,>"));
