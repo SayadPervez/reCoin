@@ -4,6 +4,7 @@ const io3000 = io2.connect("http://localhost:3000");
 var sleep = require('system-sleep');
 const fs= require('fs');
 const dbp="./dataBase.csv";
+eval(fs.readFileSync('./public/functions.js')+'');
 
 io3000.on("mod",(data)=>{
     var t = data.task;
