@@ -1,6 +1,6 @@
 # reCoin
 ---
-### Source code for version S12 (dark/silver) of Recoin will be disclosed only on Request...
+### Source code for version S8 (dark/silver) of Recoin will be disclosed only on Request...
 ![premium1](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/collage.jpeg?raw=true)
 #### Mobile View 
 ![premium2](https://github.com/SayadPervez/reCoin/blob/master/markdown%20pics/mob%20dark.jpeg?raw=true)
